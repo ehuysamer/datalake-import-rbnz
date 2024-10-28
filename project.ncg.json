@@ -1,5 +1,5 @@
 {
-    "projectName": "Datalake Import RBNZ",
+    "projectName": "DatalakeImportRBNZ",
     "projectDescription": "Import data from RBNZ",
     "errorPrefix": "DLRB",
     "author": "Eugene Huysamer"

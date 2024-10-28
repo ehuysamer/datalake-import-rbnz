@@ -1,18 +1,5 @@
-- Things still to do on the sample:
-    - eslint
-    - run tests
-
-- Set up Git
-    - git init
-    - git remote add origin https://github.com/ehuysamer/datalake-import-rbnz.git
-    - git add -A
-    - git commit -m "Initial submission"
-    - git push -u origin master
-- Set up IAC
-    - terraform init
-    - terraform apply
 - Run the build
-    - aws codebuild start-build --project-name datalake-import-rbnz
+    ! aws codebuild start-build --project-name datalake-import-rbnz
     - https://ap-southeast-2.console.aws.amazon.com/codesuite/codebuild/329548127068/projects/datalake-import-rbnz?region=ap-southeast-2
 - Verify GitHook: Commit and push, check the build
     - aws codebuild list-builds-for-project --project-name <project-name>
@@ -20,6 +7,14 @@
     - aws codebuild batch-get-builds --ids <build-id>
 
 =================================================================
-
-[yyyy/MM/dd]
+[2024/10/28]
+X Set up Git
+    X git init
+    X git remote add origin https://github.com/ehuysamer/datalake-import-rbnz.git
+    X git add -A
+    X git commit -m "Initial submission"
+    X git push -u origin master
+X Set up IAC
+    X terraform init
+    X terraform apply
 

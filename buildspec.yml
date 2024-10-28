@@ -40,12 +40,11 @@ phases:
       - npm run deploy:dev
       - date +"%T"
     on-failure: echo "Build failed"
-
-cache:
-  paths:
-    - /usr/local/n/versions/node/20.18.0
-    - /usr/local/bin/terraform
-    - node_modules/**/*
-    - /usr/local/n/versions
-    - /usr/local/lib/node_modules/**/*
+# cache:
+#   paths:
+#     - /usr/local/n/versions/node/20.18.0
+#     - /usr/local/bin/terraform
+#     - node_modules/**/*
+#     - /usr/local/n/versions
+#     - /usr/local/lib/node_modules/**/*
 

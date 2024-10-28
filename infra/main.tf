@@ -21,7 +21,7 @@ variable "region" {
 }
 
 variable "repo" {
-  default = "https://github.com/ehuysamer/dlrb-datalake.git"
+  default = "https://github.com/ehuysamer/datalake-import-rbnz.git"
 }
 
 variable "github_token_secret_name" {
@@ -29,13 +29,13 @@ variable "github_token_secret_name" {
 }
 
 resource "aws_iam_role" "codebuild_role" {
-  name = "CodeBuildTerraformRoleDatalakeDLRB"
+  name = "CodeBuildTerraformRoleDatalakeImportRbnz"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Action    = "sts:AssumeRole",
-      Effect    = "Allow",
+      Action = "sts:AssumeRole",
+      Effect = "Allow",
       Principal = {
         Service = "codebuild.amazonaws.com"
       }
@@ -44,9 +44,9 @@ resource "aws_iam_role" "codebuild_role" {
 }
 
 resource "aws_iam_policy" "codebuild_policy" {
-  name        = "CodeBuildTerraformPolicyDatalakeDLRB"
+  name        = "CodeBuildTerraformPolicyDatalakeImportRbnz"
   description = "Permissions for CodeBuild to execute Terraform and npm tasks"
-  policy      = jsonencode({
+  policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
       {
@@ -71,8 +71,8 @@ resource "aws_iam_policy" "codebuild_policy" {
         Effect   = "Allow",
       },
       {
-        Action   = [
-          "secretsmanager:GetSecretValue",  # To get GitHub token
+        Action = [
+          "secretsmanager:GetSecretValue", # To get GitHub token
           "kms:Decrypt"
         ],
         Resource = "*",
@@ -80,27 +80,27 @@ resource "aws_iam_policy" "codebuild_policy" {
         Resource = "*"
       },
       {
-        Action   = [
-            "logs:CreateLogGroup",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents",
-            "logs:GetLogEvents",
-            "logs:DescribeLogStreams"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "logs:GetLogEvents",
+          "logs:DescribeLogStreams"
         ],
         Resource = "*",
         Effect   = "Allow"
       },
       {
         Action = [
-            "codebuild:ListSourceCredentials",
-            "codebuild:BatchGetProjects",
-            "codebuild:StartBuild",
-            "codebuild:BatchGetBuilds",
-            "codebuild:BatchGetBuildBatches",
-            "codebuild:BatchGetReports",
-            "codebuild:BatchDeleteBuilds",
-            "codebuild:ListBuildsForProject",
-            "codebuild:UpdateWebhook"
+          "codebuild:ListSourceCredentials",
+          "codebuild:BatchGetProjects",
+          "codebuild:StartBuild",
+          "codebuild:BatchGetBuilds",
+          "codebuild:BatchGetBuildBatches",
+          "codebuild:BatchGetReports",
+          "codebuild:BatchDeleteBuilds",
+          "codebuild:ListBuildsForProject",
+          "codebuild:UpdateWebhook"
         ],
         //Resource = "arn:aws:codebuild:ap-southeast-2:329548127068:project/datalake-import-rbnz",
         Resource = "*",
@@ -108,90 +108,90 @@ resource "aws_iam_policy" "codebuild_policy" {
       },
       {
         Action = [
-            "s3:PutObject",
-            "s3:GetObject",
-            "s3:ListBucket",
-            "s3:DeleteObject",
-            "s3:HeadObject"
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:DeleteObject",
+          "s3:HeadObject"
         ],
-        "Resource": "arn:aws:s3:::terraform-state-2024100601/*",
-        Effect   = "Allow"
+        "Resource" : "arn:aws:s3:::terraform-state-2024100601/*",
+        Effect = "Allow"
       },
       {
         Action = [
-            "dynamodb:PutItem",
-            "dynamodb:GetItem",
-            "dynamodb:UpdateItem",
-            "dynamodb:DeleteItem"
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem"
         ],
-        "Resource": "arn:aws:dynamodb:${var.region}:${var.aws_account}:table/terraform-state-lock-20241006",
-        Effect   = "Allow"
+        "Resource" : "arn:aws:dynamodb:${var.region}:${var.aws_account}:table/terraform-state-lock-20241006",
+        Effect = "Allow"
       },
       {
         Action = [
-            "cloudformation:ListExports",
+          "cloudformation:ListExports",
         ],
-        "Resource": "*",
-        Effect   = "Allow"
+        "Resource" : "*",
+        Effect = "Allow"
       },
       {
         Action = [
-            "route53:ListHostedZones",
+          "route53:ListHostedZones",
         ],
-        "Resource": "*",
-        Effect   = "Allow"
+        "Resource" : "*",
+        Effect = "Allow"
       },
       {
         Action = [
-            "route53:GetHostedZone",
-            "route53:ListResourceRecordSets",
-            "route53:ChangeResourceRecordSets",
-            "route53:ListHostedZonesByName",
-            "route53:CreateHostedZone",
-            "route53:DeleteHostedZone",
-            "route53:ListTagsForResource"
+          "route53:GetHostedZone",
+          "route53:ListResourceRecordSets",
+          "route53:ChangeResourceRecordSets",
+          "route53:ListHostedZonesByName",
+          "route53:CreateHostedZone",
+          "route53:DeleteHostedZone",
+          "route53:ListTagsForResource"
         ],
-        "Resource": "arn:aws:route53:::hostedzone/Z051871939S9KDL2O4UON",
-        Effect   = "Allow"
+        "Resource" : "arn:aws:route53:::hostedzone/Z051871939S9KDL2O4UON",
+        Effect = "Allow"
       },
       {
         Action = [
-            "iam:CreateRole",
-            "iam:AttachRolePolicy",
-            "iam:DetachRolePolicy",
-            "iam:PutRolePolicy",
-            "iam:ListRolePolicies",
-            "iam:ListAttachedRolePolicies",
-            "iam:DeleteRolePolicy",
+          "iam:CreateRole",
+          "iam:AttachRolePolicy",
+          "iam:DetachRolePolicy",
+          "iam:PutRolePolicy",
+          "iam:ListRolePolicies",
+          "iam:ListAttachedRolePolicies",
+          "iam:DeleteRolePolicy",
 
-            "iam:PassRole",
-            "iam:GetRole",
-            "iam:DeleteRole",
-            "iam:UpdateRoleDescription",
-            "iam:UpdateRole",
-            "iam:ListRoles",
+          "iam:PassRole",
+          "iam:GetRole",
+          "iam:DeleteRole",
+          "iam:UpdateRoleDescription",
+          "iam:UpdateRole",
+          "iam:ListRoles",
 
-            "iam:CreatePolicy",
-            "iam:CreatePolicyVersion",
-            "iam:GetPolicy",
-            "iam:GetPolicyVersion",
-            "iam:ListPolicyVersions",
-            "iam:DeletePolicy",
-            "iam:DeletePolicyVersion",
+          "iam:CreatePolicy",
+          "iam:CreatePolicyVersion",
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
+          "iam:ListPolicyVersions",
+          "iam:DeletePolicy",
+          "iam:DeletePolicyVersion",
 
-            "iam:UpdateAssumeRolePolicy",
+          "iam:UpdateAssumeRolePolicy",
 
-            "iam:",
+          "iam:",
         ],
-        "Resource": "*",
-        Effect   = "Allow"
+        "Resource" : "*",
+        Effect = "Allow"
       },
       {
-        "Effect": "Allow",
-        "Action": [
-            "secretsmanager:GetSecretValue"
+        "Effect" : "Allow",
+        "Action" : [
+          "secretsmanager:GetSecretValue"
         ],
-        "Resource": "arn:aws:secretsmanager:${var.region}:${var.aws_account}:secret:homecontroller-github-codebuild"
+        "Resource" : "arn:aws:secretsmanager:${var.region}:${var.aws_account}:secret:homecontroller-github-codebuild"
       }
     ]
   })
@@ -212,9 +212,9 @@ resource "aws_codebuild_project" "project" {
   build_timeout = "5"
   service_role  = aws_iam_role.codebuild_role.arn
   source {
-    type      = "GITHUB"
-    location  = var.repo
-    buildspec = "buildspec.yml"
+    type            = "GITHUB"
+    location        = var.repo
+    buildspec       = "buildspec.yml"
     git_clone_depth = 1
 
     git_submodules_config {
@@ -230,34 +230,34 @@ resource "aws_codebuild_project" "project" {
   }
 
   cache {
-    type     = "LOCAL"
-    modes    = ["LOCAL_SOURCE_CACHE", "LOCAL_CUSTOM_CACHE"]
+    type  = "LOCAL"
+    modes = ["LOCAL_SOURCE_CACHE", "LOCAL_CUSTOM_CACHE"]
   }
 
   environment {
-    compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "aws/codebuild/standard:6.0" #Previous 1.0
-    type         = "LINUX_CONTAINER"
+    compute_type    = "BUILD_GENERAL1_SMALL"
+    image           = "aws/codebuild/standard:6.0" #Previous 1.0
+    type            = "LINUX_CONTAINER"
     privileged_mode = false
   }
 
   logs_config {
     cloudwatch_logs {
-      group_name = "/aws/codebuild/datalake-import-rbnz"
+      group_name  = "/aws/codebuild/datalake-import-rbnz"
       stream_name = "build-log"
     }
   }
 
   tags = {
     Environment = "Prod"
-    Project = "DatalakeImportRbnz"
+    Project     = "DatalakeImportRbnz"
   }
 }
 
 resource "aws_codebuild_source_credential" "github" {
-  auth_type = "PERSONAL_ACCESS_TOKEN"
+  auth_type   = "PERSONAL_ACCESS_TOKEN"
   server_type = "GITHUB"
-  token = data.aws_secretsmanager_secret_version.github_token.secret_string
+  token       = data.aws_secretsmanager_secret_version.github_token.secret_string
 }
 
 resource "aws_codebuild_webhook" "github_webhook" {
@@ -271,7 +271,7 @@ resource "aws_codebuild_webhook" "github_webhook" {
 
     filter {
       type    = "HEAD_REF"
-      pattern = "refs/heads/master"  # Change to your desired branch
+      pattern = "refs/heads/master" # Change to your desired branch
     }
   }
 
@@ -290,6 +290,6 @@ data "aws_route53_zone" "domain_name" {
 }
 
 output "project_name" {
-  value = "${aws_codebuild_project.project.name}"
+  value = aws_codebuild_project.project.name
 }
 
