@@ -1,0 +1,14 @@
+{
+    "watch": [
+        "config/",
+        "dal/",
+        "handlers/",
+        "services/",
+        "store/",
+        "serverless.yml",
+        "package.json",
+        "../processorLib"
+    ],
+    "ext": "js,json,yml,yaml",
+    "exec": "serverless offline start"
+}

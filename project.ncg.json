@@ -1,0 +1,6 @@
+{
+    "projectName": "Datalake Import RBNZ",
+    "projectDescription": "Import data from RBNZ",
+    "errorPrefix": "DLRB",
+    "author": "Eugene Huysamer"
+}

@@ -1,0 +1,51 @@
+version: 0.2
+
+env:
+  variables:
+    REPORTS_FOLDER: reports
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - node --version
+      - npm --version
+      - npm root -g
+      - pwd
+      - date +"%T"
+      - npm install -g serverless@3
+      - date +"%T"
+      - npm install
+      - date +"%T"
+      - '[ -f /usr/local/bin/terraform ] && echo "Using Terraform from cache" || (echo "Downloading terraform..."; curl -o /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.9.7/terraform_1.9.7_linux_amd64.zip; unzip -o /tmp/terraform.zip terraform -d /usr/local/bin/; chmod +x /usr/local/bin/terraform)'
+      - ls -lah /usr/local/bin/terraform
+      - date +"%T"
+      - terraform --version
+      - serverless --version
+      - git rev-parse HEAD
+
+  build:
+    commands:
+      - echo "Applying IaC changes..."
+      - cd infra
+      - date +"%T"
+      - terraform init
+      - terraform apply -auto-approve
+      - date +"%T"
+      - cd ..
+      - serverless package
+      - ls -lah .serverless
+      - less .serverless/datalake-import-rbnz.zip
+      - npm run deploy:dev
+      - date +"%T"
+    on-failure: echo "Build failed"
+
+cache:
+  paths:
+    - /usr/local/n/versions/node/20.18.0
+    - /usr/local/bin/terraform
+    - node_modules/**/*
+    - /usr/local/n/versions
+    - /usr/local/lib/node_modules/**/*
+

@@ -1,0 +1,36 @@
+service: datalake-import-rbnz
+
+frameworkVersion: "3"
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  endpointType: REGIONAL
+  region: ap-southeast-2
+  stage: prod
+
+package:
+  excludeDevDependencies: true
+  exclude:
+    - "*.todo"
+    - "*.md"
+    - "test/**"
+    - "node_modules/**"
+    - "infra/**"
+
+    #- include-me.js
+    #- include-me-dir/**
+
+functions:
+  status:
+    handler: src/handlers/status.handler
+    events:
+      - http:
+          path: status
+          method: get
+          private: true
+          cors: true
+

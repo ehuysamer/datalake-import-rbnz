@@ -1,0 +1,7 @@
+{
+    "awsAccount": "329548127068",
+    "awsRegion": "ap-southeast-2",
+    "iacState": "media-state-bucket",
+    "iacLock": "terraform-locks",
+    "domainName": "richochet.link"
+}

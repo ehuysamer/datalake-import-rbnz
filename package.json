@@ -1,0 +1,26 @@
+{
+    "name": "datalake-import-rbnz",
+    "version": "1.0.0",
+    "description": "Import data from RBNZ",
+    "main": "handler.js",
+    "type": "module",
+    "scripts": {
+        "dev": "serverless offline --noPrependStageInUrl",
+        "dev:watch": "serverless offline --reloadHandler --noPrependStageInUrl",
+        "test": "jest",
+        "test:watch": "jest --verbose --watchAll",
+        "deploy:dev": "serverless deploy",
+        "deploy:test": "serverless deploy",
+        "deploy:prod": "serverless deploy --stage=prod"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "serverless-offline": "^13.3.3"
+    },
+    "dependencies": {
+        "datalake-import-rbnz": "file:",
+        "serverless": "^3.39.0"
+    }
+}
+
