@@ -1,5 +1,6 @@
 export const ERROR_VALIDATION = 'EValidation';
 export const ERROR_DATABASE = 'EDatabase';
+export const ERROR_API = 'EAPI';
 export const ERROR_TIMEOUT = 'ETimeout';
 export const ERROR_STREAM_INPUT = 'EStreamInput';
 export const ERROR_UNDEFINED = 'EUndefined'; // There is no error code for this

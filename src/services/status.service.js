@@ -1,5 +1,8 @@
-export default () => {
+//import determineCurrentIp from './determineCurrentIp.service.js';
+
+export default async () => {
     return {
-        message: 'OK'
+        message: 'OK',
+        //publicIp: await determineCurrentIp()
     }
 }

@@ -1,7 +1,16 @@
 {
     "aws": {
         "region": "ap-southeast-2",
-        "account": "329548127068"
+        "account": "329548127068",
+        "ip": "52.64.234.34",
+        "vpc": "vpc-0b65d5b4392ffb233",
+        "vpcSecurityGroupIds": [
+            "sg-083c5ec876ec4503d"
+        ],
+        "vpcSubnetIds": [
+            "subnet-0a4811ca61b43587f"
+        ],
+        "comments": "also: sg-083c5ec876ec4503d ;;; subnet-0a4811ca61b43587f,subnet-d4c7ad9d,subnet-44a1d923,subnet-34eb126c"
     },
     "_urlOcrHistory": "https://codingpractices.com/",
     "urlOcrHistory": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions",
