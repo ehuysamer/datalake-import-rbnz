@@ -6,6 +6,8 @@
     "_urlOcrHistory": "https://codingpractices.com/",
     "urlOcrHistory": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions",
     "bucketName": "datalake-common-2024",
+    "bucketRootPrefix": "finance-dev",
+    "bucketPrefixOcr": "finance-dev/rbnzocr/downloads",
     "timezone": "Pacific/Auckland",
     "dateFormat": "yyyy-MM-dd",
     "timestampFormat": "yyyyMMddHHmmssSSS",

@@ -21,21 +21,18 @@ provider:
     maxPreviousDeploymentArtifacts: 2
     blockPublicAccess: true
     versioning: false
-    iam:
-      role:
-        name: "${self:provider.tags.project}-${self:provider.tags.env}-lambdaRole"
-        statements:
-          - Effect: Allow
-            Action:
-              - s3:GetObject
-              - s3:PutObject
-            Resource: arn:aws:s3:::datalake-common-2024/finance-dev/*
-          - Effect: Allow
-            Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogStream
-              - logs:PutLogEvents
-            Resource: "*"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:PutObject
+      Resource: arn:aws:s3:::${file(./src/config/config.json):bucketName}/${file(./src/config/config.json):bucketRootPrefix}/*
+    - Effect: Allow
+      Action:
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+      Resource: "*"
 
 package:
   excludeDevDependencies: true
@@ -43,8 +40,12 @@ package:
     - "*.todo"
     - "*.md"
     - "test/**"
-    - "node_modules/**"
+    #- "node_modules/**"
     - "infra/**"
+    - "*.ncg.json"
+    - "*.txt"
+    - "buildspec.yml"
+    - "nodemon.json"
 
     #- include-me.js
     #- include-me-dir/**

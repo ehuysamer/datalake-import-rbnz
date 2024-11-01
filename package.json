@@ -16,11 +16,12 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "serverless": "^3.39.0",
         "serverless-offline": "^13.3.3"
     },
     "dependencies": {
         "datalake-import-rbnz": "file:",
         "luxon": "^3.5.0",
-        "serverless": "^3.39.0"
+        "node-fetch": "^3.3.2"
     }
 }

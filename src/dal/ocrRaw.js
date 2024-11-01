@@ -9,7 +9,7 @@ export async function putOcrRaw(content, key, metadata) {
     console.log('DAL:OCR-RAW');
     const config = await getConfig();
 
-    const path = 'finance-dev/rbnzocr/downloads';
+    const path = config.bucketPrefixOcr;
 
     try {
         const paramsBody = {
