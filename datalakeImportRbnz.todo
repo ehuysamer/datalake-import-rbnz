@@ -1,6 +1,12 @@
 - Run the build
     ! aws codebuild start-build --project-name datalake-import-rbnz
     - https://ap-southeast-2.console.aws.amazon.com/codesuite/codebuild/329548127068/projects/datalake-import-rbnz?region=ap-southeast-2
+- Test local stack
+    # npm install
+    # npm run dev:watch
+- Test lambda
+    # https://
+
 - Verify GitHook: Commit and push, check the build
     - aws codebuild list-builds-for-project --project-name <project-name>
     - aws codebuild batch-get-builds --ids <build-id> --query "builds[0].buildStatus" --output text

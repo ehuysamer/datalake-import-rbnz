@@ -34,9 +34,6 @@ phases:
       - terraform apply -auto-approve
       - date +"%T"
       - cd ..
-      - serverless package
-      - ls -lah .serverless
-      - less .serverless/datalake-import-rbnz.zip
       - npm run deploy:dev
       - date +"%T"
     on-failure: echo "Build failed"
