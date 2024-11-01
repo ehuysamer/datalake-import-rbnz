@@ -1,0 +1,13 @@
+{
+    "aws": {
+        "region": "ap-southeast-2",
+        "account": "329548127068"
+    },
+    "_urlOcrHistory": "https://codingpractices.com/",
+    "urlOcrHistory": "https://www.rbnz.govt.nz/monetary-policy/monetary-policy-decisions",
+    "bucketName": "datalake-common-2024",
+    "timezone": "Pacific/Auckland",
+    "dateFormat": "yyyy-MM-dd",
+    "timestampFormat": "yyyyMMddHHmmssSSS",
+    "dateTimeFormat": "yyyy-MM-dd HH:mm:ss.tt"
+}

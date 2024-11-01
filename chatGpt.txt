@@ -1,0 +1,7 @@
+For all code in this session, write it as follows:
+NodeJs functions 
+Use import syntax
+Use single quotes 
+Use Stroustrup notation
+All service classes (following service object pattern) are in a subdirectory services
+Don't provide explanations unless I request it

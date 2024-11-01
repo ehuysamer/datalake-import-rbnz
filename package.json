@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "datalake-import-rbnz": "file:",
+        "luxon": "^3.5.0",
         "serverless": "^3.39.0"
     }
 }
-

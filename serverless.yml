@@ -11,6 +11,31 @@ provider:
   endpointType: REGIONAL
   region: ap-southeast-2
   stage: prod
+  tags:
+    project: datalake
+    instance: rbnz-raw
+    env: ${self:provider.stage}
+  deploymentPrefix: "${self:provider.tags.project}-${self:provider.tags.instance}-${self:provider.tags.env}"
+  deploymentBucket:
+    name: "infra-deploy-all"
+    maxPreviousDeploymentArtifacts: 2
+    blockPublicAccess: true
+    versioning: false
+    iam:
+      role:
+        name: "${self:provider.tags.project}-${self:provider.tags.env}-lambdaRole"
+        statements:
+          - Effect: Allow
+            Action:
+              - s3:GetObject
+              - s3:PutObject
+            Resource: arn:aws:s3:::datalake-common-2024/finance-dev/*
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: "*"
 
 package:
   excludeDevDependencies: true
@@ -27,10 +52,25 @@ package:
 functions:
   status:
     handler: src/handlers/status.handler
+    description: "Get the status of the service"
+    memorySize: 128
     events:
       - http:
           path: status
           method: get
           private: true
           cors: true
-
+  downloadOcr:
+    handler: src/handlers/downloadOcr.handler
+    description: "Download the raw ocr web page"
+    memorySize: 128
+    events:
+      - http:
+          path: downloadOcr
+          method: post
+          private: true
+          cors: true
+      - schedule:
+          # rate: cron(0 13 ? * MON-FRI *)
+          rate: cron(0 13 * * ? *)
+          enabled: true
